@@ -7,7 +7,7 @@ import uuid
 class Genre(models.Model):
     name = models.CharField('name', max_length=200, help_text="Enter the name of book genre")
 
-    def _str_(self) -> str:
+    def __str__(self) -> str:
         return self.name
 
 class Author(models.Model):
@@ -16,16 +16,24 @@ class Author(models.Model):
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
+    
+    def display_books(self) -> str:
+        return ', '.join(book.title for book in self.books.all())
+    # pakeitem stulpeliui pavadinima is display books i books
+    display_books.short_description = 'books'
 
-class Meta:
-    ordering = ['last_name', 'first_name']
+    # klase kuri padeda aprasyti modelio klase, siuo atveju autoriui
+    class Meta:
+        ordering = ['last_name', 'first_name'] # rusiuoja pagal autoriaus pavarde
+        verbose_name = "author"
+        verbose_name_plural = "authors"
 
 class Book(models.Model):
     title = models.CharField('title', max_length=255) #Charfield maximalus yra 255 ir privalomas max_length
     summary = models.TextField('summary') #Textfield neribojamas ilgis, tai max_length nereikia nurodyti
     isbn = models.CharField('ISBN', max_length=13, null=True, blank=True, 
         help_text='<a href="https://www.isbn-international.org/content/what-isbn" target="_blank">ISBN code</a> consisting of 13 symbols') #null=True duombazei, blank=True djangui,adminui
-    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, blank=True)
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, blank=True, related_name='books', )
     # cascade - istrinant autoriu, istrins ir visas knygas(ziauriausias), 
     # protect-neleis istrinti autoriaus, jei jis tures knygu, 
     # set_null-autoriu padarys null ji istrynus, bet paliks knygas, 
@@ -34,6 +42,12 @@ class Book(models.Model):
 
     def __str__(self) -> str:
         return f"{self.author} - {self.title}"
+
+    # cia class BookAdmin'ui
+    def display_genre(self):
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+    # pakeitem stulpeliui pavadinima is display genre i genre(s)
+    display_genre.short_description = 'genre(s)'
 
 class BookInstance(models.Model):
     unique_id = models.UUIDField('unique ID', default=uuid.uuid4, editable=False) # uuid3 ir uuid5 reikia paduoti argumenta, uuid4 - random
@@ -50,9 +64,8 @@ class BookInstance(models.Model):
     status = models.CharField('status', max_length=1, choices=LOAN_STATUS, default='m')
     # price = models.DecimalField('price', max_digits=18, decimal_places=2)
 
-
     def __str__(self) -> str:
         return f"{self.unique_id}: {self.book.title}"
 
-class Meta:
-    ordering = ['due_back']
+    class Meta:
+        ordering = ['due_back']
