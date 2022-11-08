@@ -18,6 +18,9 @@ class BookInstanceAdmin(admin.ModelAdmin):
     list_filter = ('status', 'due_back')
     # grazina id rodyma, bet neduoda redaguoti
     readonly_fields = ('unique_id', )
+    # kreipiamasi per du underscorus. ForeignKey ir laukas, arba django lookups
+    search_fields = ('unique_id', 'book__title', 'book__author__last_name__exact')
+    list_editable = ('status', 'due_back')
 
 # tuples tuplese. Atskyrem i general: knygos id ir pati knyga, ir availability: knygos statusa ir kalendoriu
 # dvi juostas padarem ir pasitvarkem eiliskuma lauku, pasigrupavom
