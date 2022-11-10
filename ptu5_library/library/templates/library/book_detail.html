@@ -1,0 +1,19 @@
+{% extends 'library/base.html' %}
+{% block title %}{{ object }}{% endblock title %}
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <h3>by {{ object.author }}</h3>
+    {% if object.isbn %}
+        <p>ISBN: {{ object.isbn }}</p>
+    {% endif %}
+    {% if object.genre %}
+        <p>Genres: {{ object.genre.all|join:"," }}
+            {% comment "" %}{% for genre in object.genre.all %}
+                <span class="genre">{{ genre }}</span>
+            {% endfor %}{% endcomment %}
+        </p>
+    {% endif %}
+    <div class="summary">
+        {{ object.summary }}
+    </div>    
+{% endblock content %}
