@@ -8,7 +8,7 @@
         <h3>Available genres</h3>
         <ul>
             {% for filter_genre in genres  %}
-                <li>{{ filter_genre.link_filtered_books}}</li>
+                <li class="{% if filter_genre == genre %}current{% endif %}">{{ filter_genre.link_filtered_books}}</li>
             {% endfor %}
         </ul>
     </div>

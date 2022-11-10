@@ -59,7 +59,12 @@ footer .container {
 
 .genre_filter {
     float: right;
-    background-color: #aac;
+    background-color: #abd;
+
+}
+
+.genre_filter .current {
+    background-color: #dbd;
 }
 
 ul {
