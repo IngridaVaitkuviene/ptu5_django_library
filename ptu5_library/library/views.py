@@ -33,10 +33,21 @@ class BooklistView(ListView):
     model = Book
     template_name = 'library/book_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        genre_id = self.request.GET.get('genre_id')
+        if genre_id:
+            queryset = queryset.filter(genre__id=genre_id)
+        return queryset
+        
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['books_count'] = Book.objects.count()
         context['books_count'] = self.get_queryset().count()
+        genre_id = self.request.GET.get('genre_id')
+        if genre_id:
+            context['genre'] = get_object_or_404(Genre, id=genre_id)
         return context
 
 

@@ -1,9 +1,11 @@
 {% extends 'library/base.html' %}
 {% block title %}Books in {{block.super}}{% endblock title %}
 {% block content %}
-    <h1>{{ books_count }} Books</h1>
+    <h1>{{ books_count }} 
+        {% if genre %} {{ genre }} {% endif %}
+        Books</h1>
     <ul>
         {% for book in book_list %}
-            <li><a href="{% url 'book' book.pk %}">{{ book.title }}</a> - {{ book.author }}</li>
+            <li><a href="{% url 'book' book.pk %}">{{ book.title }}</a> - {{ book.author.link }}</li>
             {% endfor %}
 {% endblock content %}

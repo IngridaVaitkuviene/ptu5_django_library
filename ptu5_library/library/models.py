@@ -1,5 +1,7 @@
 from django.db import models
 import uuid
+from django.utils.html import format_html
+from django.urls import reverse
 
 #id automatiskai susikuria, nereikia nurodyt
 #models.Model tas pats, kas Base sqlalchemy
@@ -9,6 +11,10 @@ class Genre(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def link_filtered_books(self):
+        link = reverse('books')+'?genre_id='+str(self.id)
+        return format_html('<a class="genre" href="{link}">{name}</a>', link=link, name=self.name)
 
 class Author(models.Model):
     first_name = models.CharField('first name', max_length=50)
@@ -21,6 +27,10 @@ class Author(models.Model):
         return ', '.join(book.title for book in self.books.all())
     # pakeitem stulpeliui pavadinima is display books i books
     display_books.short_description = 'books'
+
+    def link(self) -> str:
+        link = reverse('author', kwargs={'author_id': self.id})
+        return format_html('<a href="{link}">{author}</a>', link=link, author=self.__str__())
 
     # klase kuri padeda aprasyti modelio klase, siuo atveju autoriui
     class Meta:
@@ -48,6 +58,12 @@ class Book(models.Model):
         return ', '.join(genre.name for genre in self.genre.all()[:3])
     # pakeitem stulpeliui pavadinima is display genre i genre(s)
     display_genre.short_description = 'genre(s)'
+
+    # vietoj pvz <a href="{% url 'book' book.pk %}" pasidarom linka author_link
+    def author_link(self) -> str:
+        # reverse suformuoja adresa (link'a)
+        link = reverse('author', kwargs={'author_id': self.author.id})
+        return format_html('<a href="{link}">{author}</a>', link=link, author=self.author)
 
 class BookInstance(models.Model):
     unique_id = models.UUIDField('unique ID', default=uuid.uuid4, editable=False) # uuid3 ir uuid5 reikia paduoti argumenta, uuid4 - random
