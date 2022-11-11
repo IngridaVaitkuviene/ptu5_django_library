@@ -83,3 +83,25 @@ ul li:hover {
 ul li {
     padding: 0.2rem;
 }
+
+.paginator {
+    margin: 0.5rem 0.8rem;
+}
+
+.paginator a, .paginator span {
+    display: inline-block;
+    padding: 0.3rem;
+    margin: 1px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    
+}
+
+.paginator span {
+    background-color: #dbd;
+    color: #236;
+}
+
+.paginator form {
+    display: inline-block;
+}
