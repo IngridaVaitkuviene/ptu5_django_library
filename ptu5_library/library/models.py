@@ -49,6 +49,7 @@ class Book(models.Model):
     # set_null-autoriu padarys null ji istrynus, bet paliks knygas, 
     # do nothing (nerekomenduojamas) - ismes klaida, nes nieko nedaro
     genre = models.ManyToManyField(Genre, help_text='Choose genre(s) for this book', verbose_name='genre(s)') #verbose_name padaro kur reikia daugyskaita, vienaskaita, didziaja raide, mazaja
+    cover = models.ImageField("cover", upload_to='covers', blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.author} - {self.title}"

@@ -1,6 +1,7 @@
 {% extends 'library/base.html' %}
 {% block title %}{{ object }}{% endblock title %}
 {% block content %}
+    <img src="{{ book.cover.url }}" style="max-width: 8vw; margin: 1rem">
     <h1>{{ object.title }}</h1>
     <h3>by {{ object.author.link }}</h3>
     {% if object.isbn %}

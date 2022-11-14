@@ -44,6 +44,7 @@ class BooklistView(ListView):
         queryset = super().get_queryset()
         search = self.request.GET.get('search')
         if search:
+            # Icontains nuo contains skiriasi tuo, kad icontains ignoruoja ar raidės didžiosios/mažosios
             queryset = queryset.filter(Q(title__icontains=search)| Q(summary__icontains=search))
         genre_id = self.request.GET.get('genre_id')
         if genre_id:
