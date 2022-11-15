@@ -1,7 +1,12 @@
 {% extends 'library/base.html' %}
+{% load static %}
 {% block title %}{{ object }}{% endblock title %}
-{% block content %}
-    <img src="{{ book.cover.url }}" style="max-width: 8vw; margin: 1rem">
+{% block content %}  
+    {% if book.cover %}
+        <img src="{{ book.cover.url }}" style="max-width: 8vw; margin: 1rem">
+    {% else %}
+        <img src="{% static 'library/img/cover_coming_soon.png' %}" style="max-width: 8vw; margin: 1rem">
+    {% endif %}
     <h1>{{ object.title }}</h1>
     <h3>by {{ object.author.link }}</h3>
     {% if object.isbn %}
