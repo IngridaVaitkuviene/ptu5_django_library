@@ -14,13 +14,17 @@ def index(request):
     book_instance_count = BookInstance.objects.count()
     book_instance_available_count = BookInstance.objects.filter(status='a').count()
     author_count = Author.objects.count()
+    # kiek kartu sesijoje apsilankeme
+    visits_count = request.session.get('visits_count', 1)
+    request.session['visits_count'] = visits_count + 1
 
     context = {
         'book_count': book_count,
         'book_instance_count': book_instance_count,
         'book_instance_available_count': book_instance_available_count,
         'author_count': author_count,
-        'genre_count':Genre.objects.count()
+        'genre_count':Genre.objects.count(),
+        'visits_count': visits_count,
     }
 
     return render(request, 'library/index.html', context)
