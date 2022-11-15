@@ -24,7 +24,7 @@
                     {% endif %}
                     <a href="{% url 'logout' %}">Logout</a>
                 {% else %}
-                    <a href="{% url 'login' %}?next={{ request.path}}">Login</a>
+                    <a href="{% url 'login' %}{% if not '/accounts/' in request.path %}?next={{ request.path }}{% endif %}">Login</a>
                 {% endif %}
             {% endblock nav %}
         </div>
