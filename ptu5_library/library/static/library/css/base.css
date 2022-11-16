@@ -180,3 +180,9 @@ table {
     background-color: #569;
     color: #eee;
 }
+
+.overdue {
+    background-color: #f99;
+    color: #900;
+    font-weight: bold;
+}

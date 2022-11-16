@@ -4,6 +4,7 @@ from django.utils.html import format_html
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.utils.timezone import datetime
+from tinymce.models import HTMLField
 
 #id automatiskai susikuria, nereikia nurodyt
 #models.Model tas pats, kas Base sqlalchemy
@@ -42,7 +43,7 @@ class Author(models.Model):
 
 class Book(models.Model):
     title = models.CharField('title', max_length=255) #Charfield maximalus yra 255 ir privalomas max_length
-    summary = models.TextField('summary') #Textfield neribojamas ilgis, tai max_length nereikia nurodyti
+    summary = HTMLField('summary') #Textfield neribojamas ilgis, tai max_length nereikia nurodyti
     isbn = models.CharField('ISBN', max_length=13, null=True, blank=True, 
         help_text='<a href="https://www.isbn-international.org/content/what-isbn" target="_blank">ISBN code</a> consisting of 13 symbols') #null=True duombazei, blank=True djangui,adminui
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, blank=True, related_name='books', )
