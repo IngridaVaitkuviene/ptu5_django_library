@@ -137,3 +137,30 @@ EMAIL_PORT = 587
 EMAIL_USE_TSL = True
 EMAIL_HOST_USER = local_settings.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 400,
+    'cleanup_on_startup': False,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code insertdatetime nonbreaking directionality searchreplace 
+            wordcount visualblocks visualchars fullscreen autolink lists charmap 
+            print hr anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect | forecolor backcolor | 
+            alignleft aligncenter alignright alignjustify |
+            indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+    }
