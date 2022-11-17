@@ -81,5 +81,3 @@ class UserBookListView(LoginRequiredMixin, ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(reader=self.request.user).order_by('due_back')
         return queryset
-        
-        return 
