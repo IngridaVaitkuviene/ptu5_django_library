@@ -237,3 +237,14 @@ table {
     background-color: rgba(255, 204, 168, 0.3);
     border-bottom: 3px solid #ccc;
 }
+
+.user-profile-photo {
+    max-width: 20rem;
+    float: left;
+    border-radius: 10%;
+}
+
+.flex-profile {
+    display: flex;
+    place-items: stretch stretch;
+}

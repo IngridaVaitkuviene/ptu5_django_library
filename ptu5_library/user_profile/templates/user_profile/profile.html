@@ -1,0 +1,18 @@
+{% extends 'library/base.html' %}
+{% block title %}{{ block.super }} {{ user }} profile{% endblock title %}
+{% block content %}
+<h1>{{ user }} profile</h1>
+<div class="flex-profile">
+    {% if user.profile and user.profile.photo %}
+        <div>
+            <img src="{{ user.profile.photo.url}}" class="user-profile-photo">
+        </div>
+    {% endif %}
+    <div class="spacer">
+        {% if user.first_name or user.last_name %}
+            <p>Name: {{ user.first_name}} {{ user.last_name}}</p>
+        {% endif %}
+        <p>E-mail: {{ user.email }}</p>
+    </div>
+</div>
+{% endblock content %}

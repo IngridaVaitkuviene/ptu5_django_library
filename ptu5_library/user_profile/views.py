@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.core.validators import validate_email
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
@@ -35,3 +36,7 @@ def register(request):
             messages.success(request, f'User {username} registration successful. You can log in now')
             return redirect('login')
     return render(request, 'user_profile/register.html')
+
+@login_required
+def profile(request):
+    return render(request, "user_profile/profile.html")
