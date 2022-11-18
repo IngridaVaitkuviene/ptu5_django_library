@@ -25,7 +25,7 @@
     <h2>Reviews</h2> 
     {% if user.is_authenticated %}
         <div class="review-form">
-            <p>Ir you have read this book, please leave a review.</p>
+            <p>If you have read this book, please leave a review.</p>
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
