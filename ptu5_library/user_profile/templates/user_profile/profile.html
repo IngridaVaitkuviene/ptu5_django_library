@@ -13,6 +13,7 @@
             <p>Name: {{ user.first_name}} {{ user.last_name}}</p>
         {% endif %}
         <p>E-mail: {{ user.email }}</p>
+        <p><a class="button" href="{% url 'update_profile' %}">Update</a></p>
     </div>
 </div>
 {% endblock content %}

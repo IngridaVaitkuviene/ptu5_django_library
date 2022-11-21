@@ -1,0 +1,23 @@
+{% extends 'library/base.html' %}
+{% block title %}Updating {{ block.supeer }} User Profile {% endblock title %}
+{% block content %}
+<h1>Updating User Profile</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.errors }}
+    {{ profile_form.errors }}
+    <div class="table-grid form-grid">
+        <div>{{ user_form.first_name.label }}</div>
+        <div>{{ user_form.first_name }}</div>
+        <div>{{ user_form.last_name.label }}</div>
+        <div>{{ user_form.last_name }}</div>
+        <div>{{ user_form.email.label }}</div>
+        <div>{{ user_form.email }}</div>
+        <div>{{ profile_form.photo.label }}</div>
+        <div>{{ profile_form.photo }}</div>
+        <div></div><div><button type="submit">Update</button></div>
+    </div>
+</form>
+{% endblock content %}
+
+
