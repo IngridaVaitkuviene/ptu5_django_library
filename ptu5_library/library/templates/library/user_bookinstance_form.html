@@ -3,10 +3,9 @@
 {% block content %}
 <h1>{% if action %}{{ action }}{% else %}Reserve{% endif %} a book</h1>
 <form action="" method="post">
+    {% if book_instance %}<p>{{ book_instance.book }}</p>{% endif %}
     {% csrf_token %}
     {{ form.as_p }}
     <p><button type="submit">{% if action %}{{ action }}{% else %}Reserve{% endif %}</button></p>
 </form>
 {% endblock content %}
-
- 

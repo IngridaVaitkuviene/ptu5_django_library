@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
-from .forms import BookReviewForm
+from .forms import BookReviewForm, BookInstanceForm, BookInstanceUpdateForm
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 
@@ -113,7 +113,8 @@ class UserBookListView(LoginRequiredMixin, ListView):
 # klasese turim naudoti ne reverse, o reverse_lazy
 class UserBookInstanceCreateView(LoginRequiredMixin, CreateView):
     model = BookInstance
-    fields = ('book', 'due_back', )
+    # fields = ('book', 'due_back', )
+    form_class = BookInstanceForm
     template_name = 'library/user_bookinstance_form.html'
     success_url = reverse_lazy('user_books')
 
@@ -126,7 +127,8 @@ class UserBookInstanceCreateView(LoginRequiredMixin, CreateView):
 
 class UserBookInstanceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = BookInstance
-    fields = ('book', 'due_back', )
+    # fields = ('book', 'due_back', )
+    form_class = BookInstanceUpdateForm
     template_name = 'library/user_bookinstance_form.html'
     success_url = reverse_lazy('user_books')
 
@@ -142,7 +144,8 @@ class UserBookInstanceUpdateView(LoginRequiredMixin, UserPassesTestMixin, Update
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.get_object().status == 't':
+        context['book_instance'] = self.get_object()
+        if context['book_instance'].status == 't':
             context['action'] = 'Extend'
         else:
             context['action'] = 'Take'
