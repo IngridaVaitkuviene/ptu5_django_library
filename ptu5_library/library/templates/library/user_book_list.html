@@ -15,8 +15,10 @@
         <div class="table-grid-cell center">
             {% if book_instance.status == 'r' %}
                 <a class="button" href="{% url 'user_bookinstance_update' book_instance.pk %}">Take</a>
+                <a class="button" href="{% url 'user_bookinstance_delete' book_instance.pk %}">Cancel</a>
             {% elif book_instance.status == 't' %}
                 <a class="button" href="{% url 'user_bookinstance_update' book_instance.pk %}">Extend</a>
+                <a class="button" href="{% url 'user_bookinstance_delete' book_instance.pk %}">Return</a>
             {% endif %}
         </div>
     {% endfor %}
