@@ -2,6 +2,7 @@
 {% block title %}My Books in {{ block.super }}{% endblock title %}
 {% block content %}
 <h1>My Books</h1>
+<p><a class="button" href="{% url 'user_bookinstance_create' %}">Borrow a Book</a></p>
 <div class='table-grid my-books-table'>
     <div class='table-grid-cell center dark'>Author - Book</div>
     <div class='table-grid-cell center dark'>Due Date</div>
