@@ -4,7 +4,7 @@ from . models import Genre, Author, Book, BookInstance
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
 from .forms import BookReviewForm
 from django.urls import reverse, reverse_lazy
@@ -114,10 +114,37 @@ class UserBookListView(LoginRequiredMixin, ListView):
 class UserBookInstanceCreateView(LoginRequiredMixin, CreateView):
     model = BookInstance
     fields = ('book', 'due_back', )
-    template_name = 'library/user_bookinstance_create.html'
+    template_name = 'library/user_bookinstance_form.html'
     success_url = reverse_lazy('user_books')
 
     def form_valid(self, form):
         form.instance.reader = self.request.user
         form.instance.status = 'r'
+        messages.success(self.request, 'Book reserved.')
         return super().form_valid(form)
+
+
+class UserBookInstanceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = BookInstance
+    fields = ('book', 'due_back', )
+    template_name = 'library/user_bookinstance_form.html'
+    success_url = reverse_lazy('user_books')
+
+    def form_valid(self, form):
+        form.instance.reader = self.request.user
+        form.instance.status = 't'
+        messages.success(self.request, 'Book taken or extended.')
+        return super().form_valid(form)
+
+    def test_func(self):
+        book_instance = self.get_object()
+        return self.request.user == book_instance.reader
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.get_object().status == 't':
+            context['action'] = 'Extend'
+        else:
+            context['action'] = 'Take'
+        return context
+        

@@ -1,11 +1,11 @@
 {% extends 'library/base.html' %}
 {% block title %}Borrowing a book from {{ block.super }}{% endblock title %}
 {% block content %}
-<h1>Reserve a book</h1>
+<h1>{% if action %}{{ action }}{% else %}Reserve{% endif %} a book</h1>
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <p><button type="submit">Reserve</button></p>
+    <p><button type="submit">{% if action %}{{ action }}{% else %}Reserve{% endif %}</button></p>
 </form>
 {% endblock content %}
 
