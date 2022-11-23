@@ -1,5 +1,6 @@
 {% extends 'library/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}{{ object }}{% endblock title %}
 {% block content %}  
     {% if book.cover %}
@@ -8,12 +9,12 @@
         <img src="{% static 'library/img/cover_coming_soon.png' %}" style="max-width: 8vw; margin: 1rem">
     {% endif %}
     <h1>{{ object.title }}</h1>
-    <h3>by {{ object.author.link }}</h3>
+    <h3>{% trans "by" %} {{ object.author.link }}</h3>
     {% if object.isbn %}
         <p>ISBN: {{ object.isbn }}</p>
     {% endif %}
     {% if object.genre %}
-        <p>Genres: {#{{ object.genre.all|join:"," }}#}
+        <p>{% trans "Genres:" %} {#{{ object.genre.all|join:"," }}#}
             {% for genre in object.genre.all %}
                 {{ genre.link_filtered_books }}
             {% endfor %}
@@ -22,14 +23,14 @@
     <div class="summary">
         {{ object.summary|safe }}
     </div>  
-    <h2>Reviews</h2> 
+    <h2>{% trans "Reviews" %}</h2> 
     {% if user.is_authenticated %}
         <div class="review-form">
-            <p>If you have read this book, please leave a review.</p>
+            <p>{% trans "If you have read this book, please leave a review." %}</p>
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <p><button type="submit">Post Review</button></p>
+                <p><button type="submit">{% trans "Post Review" %}</button></p>
             </form>
         </div> 
     {% endif %}

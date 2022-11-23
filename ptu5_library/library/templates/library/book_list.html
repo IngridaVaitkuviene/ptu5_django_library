@@ -1,10 +1,11 @@
 {% extends 'library/base.html' %}
 {% load static %}
-{% block title %}Books in {{block.super}}{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Books in" %} {{block.super}}{% endblock title %}
 {% block content %}
     <h1>{{ books_count }} 
         {% if genre %} {{ genre }} {% endif %}
-        Books</h1>
+        {% trans "Books" %}</h1>
     <div class="paginator">
         {% if page_obj.has_previous %}
             <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}page=1">&#171;</a>
@@ -17,11 +18,11 @@
         {% endif %}
         <form action="{% url 'books' %}" method="get">
             <input type="text" name="search" value="{{ request.GET.search}}">
-            <button type="submit">search</button>
+            <button type="submit">{% trans "search" %}</button>
         </form>
     </div>
     <div class="genre_filter">
-        <h3>Available genres</h3>
+        <h3>{% trans "Available genres" %}</h3>
         <ul>
             {% for filter_genre in genres  %}
                 <li class="{% if filter_genre == genre %}current{% endif %}">{{ filter_genre.link_filtered_books}}</li>
@@ -39,7 +40,7 @@
                     {% endif %}
                     <h3>{{ book.title }}</h3>
                 </a>
-                <p>by {{ book.author.link }}</p>
+                <p>{% trans "by" %} {{ book.author.link }}</p>
             </li>
             {% endfor %}
 {% endblock content %}

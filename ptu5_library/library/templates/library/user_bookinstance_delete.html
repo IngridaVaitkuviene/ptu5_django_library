@@ -1,13 +1,14 @@
 {% extends 'library/base.html' %}
-{% block title %}Returning a book to {{ block.super }} {% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Returning a book to" %} {{ block.super }} {% endblock title %}
 {% block content %}
-<h1>{% if object.status == 't' %}Returning a book{% else %}Cancel book reservation{% endif %}</h1>
+<h1>{% if object.status == 't' %}{% trans "Returning a book" %}{% else %}{% trans "Cancel book reservation" %}{% endif %}</h1>
 <form method="post" action="">
     {% csrf_token %}
-    <p>Are you sure you want to {% if object.status == 't' %}return {% else %}cancel reservation for {% endif %}the book '{{ object.book.title }}' ?</p>
+    <p>{% trans "Are you sure you want to" %} {% if object.status == 't' %}{% trans "return" %} {% else %}{% trans "cancel reservation for" %} {% endif %}{% trans "the book" %} '{{ object.book.title }}' ?</p>
     <p>
-        <button type="submit" class="button">YES</button>
-        <a href="{% url 'user_books' %}" class="button">No</a>
+        <button type="submit" class="button">{% trans "YES" %}</button>
+        <a href="{% url 'user_books' %}" class="button">{% trans "No" %}</a>
     </p>
 </form>
 {% endblock content %}

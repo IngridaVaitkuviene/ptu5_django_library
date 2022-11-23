@@ -1,24 +1,25 @@
 {% extends 'library/base.html' %}
-{% block title %}My Books in {{ block.super }}{% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "My Books in" %} {{ block.super }}{% endblock title %}
 {% block content %}
-<h1>My Books</h1>
-<p><a class="button" href="{% url 'user_bookinstance_create' %}">Borrow a Book</a></p>
+<h1>{% trans "My Books" %}</h1>
+<p><a class="button" href="{% url 'user_bookinstance_create' %}">{% trans "Borrow a Book" %}</a></p>
 <div class='table-grid my-books-table'>
-    <div class='table-grid-cell center dark'>Author - Book</div>
-    <div class='table-grid-cell center dark'>Due Date</div>
-    <div class='table-grid-cell center dark'>Status</div>
-    <div class='table-grid-cell center dark'>Actions</div>
+    <div class='table-grid-cell center dark'>{% trans "Author - Book" %}</div>
+    <div class='table-grid-cell center dark'>{% trans "Due Date" %}</div>
+    <div class='table-grid-cell center dark'>{% trans "Status" %}</div>
+    <div class='table-grid-cell center dark'>{% trans "Actions" %}</div>
     {% for book_instance in bookinstance_list %}
         <div class='table-grid-cell'>{{ book_instance.book }}</div>
         <div class="table-grid-cell center{% if book_instance.is_overdue %} overdue{% endif %}">{{ book_instance.due_back }}</div>
         <div class="table-grid-cell center{% if book_instance.is_overdue %} overdue{% endif %}">{{ book_instance.get_status_display }}</div>
         <div class="table-grid-cell center">
             {% if book_instance.status == 'r' %}
-                <a class="button" href="{% url 'user_bookinstance_update' book_instance.pk %}">Take</a>
-                <a class="button" href="{% url 'user_bookinstance_delete' book_instance.pk %}">Cancel</a>
+                <a class="button" href="{% url 'user_bookinstance_update' book_instance.pk %}">{% trans "Take" %}</a>
+                <a class="button" href="{% url 'user_bookinstance_delete' book_instance.pk %}">{% trans "Cancel" %}</a>
             {% elif book_instance.status == 't' %}
-                <a class="button" href="{% url 'user_bookinstance_update' book_instance.pk %}">Extend</a>
-                <a class="button" href="{% url 'user_bookinstance_delete' book_instance.pk %}">Return</a>
+                <a class="button" href="{% url 'user_bookinstance_update' book_instance.pk %}">{% trans "Extend" %}</a>
+                <a class="button" href="{% url 'user_bookinstance_delete' book_instance.pk %}">{% trans "Return" %}</a>
             {% endif %}
         </div>
     {% endfor %}

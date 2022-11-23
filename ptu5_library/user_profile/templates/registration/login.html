@@ -1,10 +1,11 @@
 {% extends 'library/base.html' %}
-{% block title %}Login to {{ block.super}} {% endblock title %}
+{% load i18n %}
+{% block title %}{% trans "Login to" %} {{ block.super}} {% endblock title %}
 {% block content %}
-<h1>Login to Library</h1>
+<h1>{% trans "Login to Library" %}</h1>
 
 {% if form.errors %}
-    <p class='form-error'>Login error, please try again.</p>
+    <p class='form-error'>{% trans "Login error, please try again." %}</p>
 {% endif %}
 {% if next %}
     {% if user.is_authenticated %}
@@ -16,11 +17,11 @@
 {% csrf_token %}
 <table>
     <tr>
-        <td>Username </td>
+        <td>{% trans "Username" %} </td>
         <td>{{ form.username }}</td>
     </tr>
     <tr>
-        <td>Password </td>
+        <td>{% trans "Password" %} </td>
         <td>{{ form.password }}</td>
     </tr>
     <tr>
@@ -34,6 +35,6 @@
 </table>
 </form>
 
-<p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+<p><a href="{% url 'password_reset' %}">{% trans "Forgot password?" %}</a></p>
 
 {% endblock content %}

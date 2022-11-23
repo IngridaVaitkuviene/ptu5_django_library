@@ -1,7 +1,8 @@
 {% extends 'library/base.html' %}
-{% block title %}{{ block.super }} {{ user }} profile{% endblock title %}
+{% load i18n %}
+{% block title %}{{ block.super }} {{ user }} {% trans "profile" %}{% endblock title %}
 {% block content %}
-<h1>{{ user }} profile</h1>
+<h1>{{ user }} {% trans "profile" %}</h1>
 <div class="flex-profile">
     {% if user.profile and user.profile.photo %}
         <div>
@@ -10,10 +11,10 @@
     {% endif %}
     <div class="spacer">
         {% if user.first_name or user.last_name %}
-            <p>Name: {{ user.first_name}} {{ user.last_name}}</p>
+            <p>{% trans "Name:" %} {{ user.first_name}} {{ user.last_name}}</p>
         {% endif %}
-        <p>E-mail: {{ user.email }}</p>
-        <p><a class="button" href="{% url 'update_profile' %}">Update</a></p>
+        <p>{% trans "E-mail:" %} {{ user.email }}</p>
+        <p><a class="button" href="{% url 'update_profile' %}">{% trans "Update" %}</a></p>
     </div>
 </div>
 {% endblock content %}
